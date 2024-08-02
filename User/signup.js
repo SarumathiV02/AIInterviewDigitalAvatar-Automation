@@ -35,6 +35,8 @@ class signup{
 
     async signuppage(){        //Method for Navigating to Sign Up Page
 
+        await this.page.goto(getDynamicUrl('signup'));
+
         await this.signupElement.click();
     }
 
@@ -62,9 +64,9 @@ class signup{
         try{
             const toastrmessage = await this.page.waitForSelector('.toastr', { timeout: 5000 });
             const meaasageText= await toastrmessage.innertext();
-            if(meaasageText.includes("Email Already Registered"));{
+            if(messageText.includes("Email Already Registered"));{
                 console.log("Email already registered, Redirecting to login page"); // // Implement redirection to login page logic here, if needed
-            await this.page.goto('https://ai-interview-frontend.seaswap.co/login');
+            await this.page.goto(getDynamicUrl('signup'));   //url dyanamic
         }
 
         }catch(error){
@@ -72,4 +74,9 @@ class signup{
     }
 }
 }
-module.exports(signup)
+function getDynamicUrl(page) {
+    const baseUrl = 'https://ai-interview-frontend.seaswap.co';
+    return `${baseUrl}/${page}`;
+}
+
+module.exports = signup;
