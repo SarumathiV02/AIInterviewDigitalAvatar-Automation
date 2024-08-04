@@ -51,6 +51,10 @@ class signup{
 
         await this.Emailaddress.fill(Emailaddress);
 
+        await this.page.evaluate(()=>{
+            document.querySelector('input[placeholder="Enter password"]').scrollIntoView(); // Scroll to the password field
+        });
+
         await this.Password.fill(Password);
 
         await this.page.waitForTimeout(1000);   // This can be used to ensure any dynamic content are fully loaded before proceeding.
@@ -60,13 +64,13 @@ class signup{
 
     }
 
-    async checkToastrMessage(){
+    async checkToastrMessage(message, URL){
         try{
             const toastrmessage = await this.page.waitForSelector('.toastr', { timeout: 5000 });
             const meaasageText= await toastrmessage.innertext();
-            if(messageText.includes("Email Already Registered"));{
+            if(messageText.includes(message));{
                 console.log("Email already registered, Redirecting to login page"); // // Implement redirection to login page logic here, if needed
-            await this.page.goto(getDynamicUrl('signup'));   //url dyanamic
+            await this.page.goto(getDynamicUrl(URL));   //url dyanamic
         }
 
         }catch(error){
