@@ -1,37 +1,32 @@
-const {test, expect}= require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 const signup = require('./signup');
-const login = require('./login')
+const login = require('./login');
+const { isBooleanObject } = require('util/types');
 
-// test('To verify the page will redirected to the signup page when the user click the signup element in AI Interview page.', async ({ page }) => {
-    
-//     const signUpPage = new signup(page);
+test('To verify the page will redirected to the signup page when the user click the signup element in AI Interview page if already signup then redirect into the login page.', async ({ page }) => {
 
-//     await page.goto("https://ai-interview-frontend.seaswap.co/signup");
+    const signUpPage = new signup(page);
 
-//     await expect(page).toHaveTitle('Hireko.ai');
+    await page.goto("https://ai-interview-frontend.seaswap.co/signup");
 
-//     await signUpPage.NewUserLogin('Sarumathi','Vasu','Sarumathi_Vasu','sarumathitvm02@gmail.com','V_saru2002');
+    await expect(page).toHaveTitle('Hireko.ai');
 
-//     await signUpPage.checkToastrMessage("Email already exist"); //checks if the user is already registered.
+    await signUpPage.NewUserLogin('Sarumathi', 'Vasu', 'Sarumathi_Vasu', 'sarumathitvm02@gmail.com', 'V_saru2002');
 
-test('To verify the user can log in on AI Interview page.', async ({ page }) => {
+    await expect(page.locator("//div[text() = 'Email already exist']")).toBeVisible();
 
-    // const isalreadyRegistered = await signUpPage.checkToastrMessage("Email already exist");
+    const isalreadyRegistered = await page.isVisible("//div[text() = 'Email already exist']");
 
-    // if(isalreadyRegistered){
+    if (isalreadyRegistered) {
 
-        // const loginpage = new login(page);
+        const loginPage = new login(page);
 
         await page.goto("https://ai-interview-frontend.seaswap.co/login");
-    
-        await expect(page).toHaveTitle('Hireko.ai');
-        
-        await loginpage.UserLogin('sarumathitvm02@gmail.com', 'V_saru2002');
 
-    // }
-    
+        await expect(page).toHaveTitle('Hireko.ai');
+
+        await loginPage.UserLogin('sarumathitvm02@gmail.com', 'V_saru2002');
+
+    }
 
 });
-
-// await browser.close();
-// });

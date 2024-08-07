@@ -73,6 +73,8 @@ class signup{
             if(messageText.includes(message));{
                 console.log("Email already exist, Redirecting to login page"); // // Implement redirection to login page logic here, if needed
             await this.page.goto(getDynamicUrl(URL));   //url dyanamic
+
+            return true;
         }
 
         }catch(error){
