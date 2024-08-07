@@ -51,8 +51,10 @@ class signup{
 
         await this.Emailaddress.fill(Emailaddress);
 
-        await this.page.evaluate(()=>{
-            document.querySelector('input[placeholder="Enter password"]').scrollIntoView(); // Scroll to the password field
+        // await this.page.waitForSelector('input[placeholder="Enter password"]', { state: 'visible' });
+        await this.page.evaluate(() => {
+            // document.querySelector('input[placeholder="Enter password"]').scrollIntoView(); // Scroll to the password field
+            window.scrollBy(0,1000) //document.body.scrollHeight
         });
 
         await this.Password.fill(Password);
@@ -69,8 +71,10 @@ class signup{
             const toastrmessage = await this.page.waitForSelector('.toastr', { timeout: 5000 });
             const meaasageText= await toastrmessage.innertext();
             if(messageText.includes(message));{
-                console.log("Email already registered, Redirecting to login page"); // // Implement redirection to login page logic here, if needed
+                console.log("Email already exist, Redirecting to login page"); // // Implement redirection to login page logic here, if needed
             await this.page.goto(getDynamicUrl(URL));   //url dyanamic
+
+            return true;
         }
 
         }catch(error){

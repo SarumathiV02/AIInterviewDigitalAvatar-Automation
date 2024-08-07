@@ -15,11 +15,12 @@ class login{
     }
 
     get LoginButton() {
-        return this.page.getByRole('button', { name: 'Login' });
+        // return this.page.getByRole('button', { name: 'Login' });
+        return this.page.locator('button[type="submit"]:has-text("Login")');
     }
 
 
-    async loginpage(){        //Method for Navigating to Sign Up Page
+    async loginpage(){        //Method for Navigating to login  Page
 
         await this.page.goto(getDynamicUrl('login'));
 
@@ -34,7 +35,7 @@ class login{
 
         await this.Password.fill(Password);
 
-        await this.page.waitForTimeout(5000);   // This can be used to ensure any dynamic content are fully loaded before proceeding.
+        await this.page.waitForTimeout(1000);   // This can be used to ensure any dynamic content are fully loaded before proceeding.
 
         await this.LoginButton.click();
 }
