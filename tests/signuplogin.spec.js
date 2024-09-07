@@ -2,14 +2,13 @@ const { test, expect } = require('@playwright/test');
 const signup = require('../User/signup');
 const login = require('../User/login');
 const { isBooleanObject } = require('util/types');
-
 test('SIGNUP To verify the page will redirected to the signup page when the user click the signup element in AI Interview page if already signup then redirect into the login page.', async ({ page }) => {
 
     const signUpPage = new signup(page);
 
     await page.goto("https://ai-interview-frontend.seaswap.co/signup");
 
-    await expect(page).toHaveTitle('Hireko.ai');
+    await expect(page).toHaveTitle('H!reko.ai');
 
     await signUpPage.NewUserLogin('Sarumathi', 'Vasu', 'Sarumathi_Vasu', 'sarumathitvm02@gmail.com', 'V_saru2002');
 
@@ -23,7 +22,7 @@ test('SIGNUP To verify the page will redirected to the signup page when the user
 
         await page.goto("https://ai-interview-frontend.seaswap.co/login");
 
-        await expect(page).toHaveTitle('Hireko.ai');
+        await expect(page).toHaveTitle('H!reko.ai');
 
         await loginPage.UserLogin('sarumathitvm02@gmail.com', 'V_saru2002');
 
@@ -36,7 +35,7 @@ test('LOGIN To verify the user can log in on AI Interview page.', async ({ page 
 
         await page.goto("https://ai-interview-frontend.seaswap.co/login");
     
-        await expect(page).toHaveTitle('Hireko.ai');
+        await expect(page).toHaveTitle('H!reko.ai');
         
         await loginPage.UserLogin('sarumathitvm02@gmail.com', 'V_saru2002');
     });
@@ -48,7 +47,7 @@ test('NEGATIVE TEST CASES to verify that negative cases, field validations and e
     
     await page.goto("https://ai-interview-frontend.seaswap.co/signUp");
     
-    await expect(page).toHaveTitle("Hireko.ai");
+    await expect(page).toHaveTitle("H!reko.ai");
     
     await signUpPage.NewUserLogin("", "","","","");
     
@@ -83,7 +82,7 @@ test('FIELS VALIDATIONS to verify that negative cases, field validations and err
     
     await page.goto("https://ai-interview-frontend.seaswap.co/signUp");
     
-    await expect(page).toHaveTitle("Hireko.ai");
+    await expect(page).toHaveTitle("H!reko.ai");
     
     await signUpPage.NewUserLogin("saru", "","","",""); //lastname,username,email,password are missing.
     
@@ -112,7 +111,7 @@ test('EMAIL VALIDATIONS to verify the email address-validations missing@',async(
     
     await page.goto("https://ai-interview-frontend.seaswap.co/signUp");
     
-    await expect(page).toHaveTitle("Hireko.ai");
+    await expect(page).toHaveTitle("H!reko.ai");
     
     await signUpPage.NewUserLogin("saru", "mathi","saru_mathi","saru","V_saru2002");
     
@@ -126,3 +125,24 @@ test('EMAIL VALIDATIONS to verify the email address-validations missing@',async(
         console.log("Alert is not displayed");
     }
 });
+
+
+test('Visual Comparsions', async({page})=>{
+
+    // const signUpPage=new signup(page);
+
+    await page.goto("https://ai-interview-frontend.seaswap.co/signUp");
+
+    await expect(page).toHaveScreenshot('frontend.png');
+
+    // await page.locator("//input[@id='firstName']").click();
+
+    // await page.locator("//input[@id='firstName']").fill('sarumathivasu')
+
+    await expect(page).toHaveScreenshot('frontend.png');
+
+
+
+
+});
+
